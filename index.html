@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ใบสมัครสมาชิก – สมาคมส่งเสริมพัฒนาอาชีพเสริมสวยและช่างตัดผมไทย</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8d08a;
+    --dark: #1a1209;
+    --cream: #fdf8f0;
+    --warm: #f5ede0;
+    --border: #d4b896;
+    --text: #2d1f0a;
+    --muted: #8a7560;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 10% 10%, rgba(201,168,76,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 90%, rgba(201,168,76,0.06) 0%, transparent 50%);
+  }
+
+  .page-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 36px 24px 28px;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 8px;
+    background: var(--cream);
+    border-left: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+  }
+
+  .org-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .org-name-th {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .org-address {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .form-title {
+    margin-top: 28px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: 0.04em;
+  }
+
+  .form-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 28px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold-light), transparent);
+  }
+
+  /* Fields */
+  .field-group {
+    display: grid;
+    gap: 16px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 560px) {
+    .field-row { grid-template-columns: 1fr; }
+    .card { padding: 20px 16px; }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  label span.th {
+    font-size: 12px;
+    font-weight: 400;
+    color: #bba88a;
+    margin-left: 4px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  input:focus, textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    background: #fff;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.6;
+  }
+
+  /* Date row */
+  .date-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .date-row input {
+    width: 180px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  /* Business Types */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+  }
+
+  @media (max-width: 500px) {
+    .checkbox-grid { grid-template-columns: 1fr; }
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1.5px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .checkbox-item:hover {
+    background: var(--warm);
+  }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+
+  .checkbox-item.has-input {
+    grid-column: 1 / -1;
+  }
+
+  .checkbox-label {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  .checkbox-label .en {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* Others inline */
+  .others-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .others-row input[type="text"] {
+    flex: 1;
+    min-width: 120px;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  /* Payment */
+  .radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .radio-item:hover {
+    background: var(--warm);
+  }
+
+  .radio-item input[type="radio"] {
+    accent-color: var(--gold);
+    width: 16px; height: 16px;
+  }
+
+  .radio-item.others-payment {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .radio-item.others-payment input[type="text"] {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 14px;
+    outline: none;
+  }
+
+  /* Association history */
+  .assoc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .assoc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .assoc-item .num {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 600;
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  .assoc-item input {
+    flex: 1;
+  }
+
+  /* Submit */
+  .submit-wrap {
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, #c9a84c 0%, #a87b30 100%);
+    color: #fff;
+    border: none;
+    padding: 14px 48px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(168,123,48,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(168,123,48,0.4);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Success */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .success-msg.show { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .success-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+  }
+
+  .success-msg h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .success-msg p {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* Required star */
+  .req { color: #c44; margin-left: 2px; }
+
+  /* Divider ornament */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 18px;
+    letter-spacing: 8px;
+    margin: 0 0 24px;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="org-name-th">สมาคมส่งเสริมพัฒนาอาชีพเสริมสวยและช่างตัดผมไทย</div>
+    <div class="org-address">
+      สำนักงานใหญ่: 38/14 หมู่ที่ 9 ต.คลองสี่ อ.คลองหลวง จ.ปทุมธานี 12120<br>
+      โทรศัพท์: 02-9028585, 081-402-4235
+    </div>
+    <div class="form-title">ใบสมัครสมาชิก</div>
+    <div class="form-subtitle">Membership Application Form</div>
+  </div>
+
+  <form id="appForm">
+
+    <!-- Date -->
+    <div class="date-row">
+      <label for="date">วันที่ / DATE</label>
+      <input type="date" id="date" name="date">
+    </div>
+
+    <!-- Personal Info -->
+    <div class="card">
+      <div class="section-label">ข้อมูลผู้สมัคร · Applicant Information</div>
+      <div class="field-group">
+        <div class="field full">
+          <label for="name">ชื่อ-นามสกุล ผู้สมัคร <span class="req">*</span><span class="th">/ APPLICANT NAME</span></label>
+          <input type="text" id="name" name="name" placeholder="กรอกชื่อ-นามสกุล" required>
+        </div>
+        <div class="field full">
+          <label for="business">ชื่อธุรกิจ / ร้าน <span class="th">/ BUSINESS NAME</span></label>
+          <input type="text" id="business" name="business" placeholder="ชื่อร้านหรือธุรกิจ">
+        </div>
+        <div class="field full">
+          <label for="address">ที่อยู่ปัจจุบัน <span class="req">*</span><span class="th">/ ADDRESS</span></label>
+          <textarea id="address" name="address" placeholder="บ้านเลขที่ ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด รหัสไปรษณีย์" required></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="tel">โทรศัพท์ <span class="req">*</span><span class="th">/ TEL</span></label>
+            <input type="tel" id="tel" name="tel" placeholder="0X-XXXX-XXXX" required>
+          </div>
+          <div class="field">
+            <label for="facebook">Facebook <span class="th">/ FACEBOOK</span></label>
+            <input type="text" id="facebook" name="facebook" placeholder="ชื่อ Facebook">
+          </div>
+          <div class="field">
+            <label for="line">LINE ID</label>
+            <input type="text" id="line" name="line" placeholder="LINE ID">
+          </div>
+          <div class="field">
+            <label for="email">อีเมล <span class="th">/ E-MAIL</span></label>
+            <input type="email" id="email" name="email" placeholder="example@email.com">
+          </div>
+        </div>
+        <div class="field full">
+          <label for="idcard">เลขประจำตัวประชาชน <span class="req">*</span><span class="th">/ IDENTIFICATION NUMBER</span></label>
+          <input type="text" id="idcard" name="idcard" placeholder="X XXXX XXXXX XX X" maxlength="17" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- Business Type -->
+    <div class="card">
+      <div class="section-label">ประเภทธุรกิจ · Type of Business</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">เลือกได้มากกว่า 1 ประเภท / Can choose more than one type</p>
+      <div class="checkbox-grid">
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="hair_salon">
+          <span class="checkbox-label">ร้านเสริมสวย <span class="en">HAIR SALON</span></span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="nail_salon">
+          <span class="checkbox-label">ร้านทำเล็บ <span class="en">NAIL SALON</span></span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="eyebrow">
+          <span class="checkbox-label">ร้านตกแต่งคิ้ว / ลักกิ้ว <span class="en">EYE BROW SHOP</span></span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="makeup">
+          <span class="checkbox-label">ร้านแต่งหน้าเจ้าสาว เช่าชุด <span class="en">MAKE UP STUDIO</span></span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="spa">
+          <span class="checkbox-label">สปาบัน <span class="en">SPA</span></span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="school">
+          <span class="checkbox-label">โรงเรียน <span class="en">SCHOOL</span></span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="distributor">
+          <span class="checkbox-label">ผู้จัดจำหน่ายสินค้า <span class="en">DISTRIBUTOR</span></span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="brand">
+          <span class="checkbox-label">เจ้าของแบรนด์ <span class="en">BRAND OWNER</span></span>
+        </label>
+        <label class="checkbox-item">
+          <input type="checkbox" name="biz_type" value="general">
+          <span class="checkbox-label">บุคคลทั่วไป <span class="en">GENERAL PUBLIC</span></span>
+        </label>
+        <div class="checkbox-item has-input others-row">
+          <input type="checkbox" name="biz_type" value="others" id="biz_others_cb">
+          <span class="checkbox-label" style="white-space:nowrap;">อื่น ๆ <span class="en" style="display:inline">/ OTHERS</span></span>
+          <input type="text" name="biz_others_text" id="biz_others_text" placeholder="ระบุ..." style="margin-left:4px;" disabled>
+        </div>
+      </div>
+    </div>
+
+    <!-- Association History -->
+    <div class="card">
+      <div class="section-label">ประวัติการเป็นสมาชิก · Association History</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">ท่านเคยเป็นสมาชิกสถาบันหรือสมาคมใดบ้าง / Have you ever been a member of the foundations or the associations?</p>
+      <div class="assoc-list">
+        <div class="assoc-item">
+          <span class="num">1.</span>
+          <input type="text" name="assoc1" placeholder="ชื่อสถาบัน / สมาคม">
+        </div>
+        <div class="assoc-item">
+          <span class="num">2.</span>
+          <input type="text" name="assoc2" placeholder="ชื่อสถาบัน / สมาคม">
+        </div>
+      </div>
+    </div>
+
+    <!-- Other Info -->
+    <div class="card">
+      <div class="section-label">ข้อมูลเพิ่มเติม · Others Information / Detail</div>
+      <textarea name="other_info" placeholder="รายละเอียดอื่น ๆ ที่จะแจ้งให้ทราบเพิ่มเติม..." style="min-height:100px;"></textarea>
+    </div>
+
+    <!-- Payment -->
+    <div class="card">
+      <div class="section-label">การชำระค่าสมัครสมาชิก · Payment Method</div>
+      <div class="radio-group">
+        <label class="radio-item">
+          <input type="radio" name="payment" value="cash">
+          <span>เงินสด <span style="font-size:12px;color:var(--muted);">/ CASH</span></span>
+        </label>
+        <label class="radio-item others-payment">
+          <input type="radio" name="payment" value="others" id="pay_others_rb">
+          <span style="white-space:nowrap;font-size:14px;">อื่น ๆ / OTHERS :</span>
+          <input type="text" name="payment_others_text" id="pay_others_text" placeholder="ระบุวิธีชำระ..." disabled>
+        </label>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <div class="ornament">✦ ✦ ✦</div>
+      <button type="submit" class="submit-btn">ส่งใบสมัคร · Submit Application</button>
+    </div>
+
+  </form>
+
+  <!-- Success -->
+  <div class="success-msg" id="successMsg">
+    <div class="success-icon">✅</div>
+    <h2>ส่งใบสมัครเรียบร้อยแล้ว!</h2>
+    <p>ขอบคุณที่สมัครสมาชิก ทางสมาคมจะติดต่อกลับโดยเร็ว<br>
+    <em style="font-size:12px;">Thank you for your application. We will contact you shortly.</em></p>
+  </div>
+
+</div>
+
+<script>
+  // Auto-set today's date
+  const dateInput = document.getElementById('date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.value = today;
+
+  // Enable "Others" business type text
+  document.getElementById('biz_others_cb').addEventListener('change', function() {
+    document.getElementById('biz_others_text').disabled = !this.checked;
+    if (this.checked) document.getElementById('biz_others_text').focus();
+  });
+
+  // Enable "Others" payment text
+  document.getElementById('pay_others_rb').addEventListener('change', function() {
+    document.getElementById('pay_others_text').disabled = false;
+    document.getElementById('pay_others_text').focus();
+  });
+  document.querySelectorAll('input[name="payment"]').forEach(r => {
+    r.addEventListener('change', function() {
+      if (this.value !== 'others') {
+        document.getElementById('pay_others_text').disabled = true;
+        document.getElementById('pay_others_text').value = '';
+      }
+    });
+  });
+
+  // ID card auto-format
+  document.getElementById('idcard').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g,'').slice(0,13);
+    let fmt = '';
+    if (v.length > 0)  fmt = v.slice(0,1);
+    if (v.length > 1)  fmt += ' ' + v.slice(1,5);
+    if (v.length > 5)  fmt += ' ' + v.slice(5,10);
+    if (v.length > 10) fmt += ' ' + v.slice(10,12);
+    if (v.length > 12) fmt += ' ' + v.slice(12,13);
+    this.value = fmt;
+  });
+
+  // Submit
+  document.getElementById('appForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const required = ['name','address','tel','idcard'];
+    let ok = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = '#c44';
+        el.focus();
+        ok = false;
+      } else {
+        el.style.borderColor = '';
+      }
+    });
+    if (!ok) return;
+
+    // Collect data (you can POST to your backend here)
+    const data = new FormData(this);
+    const obj = {};
+    data.forEach((v, k) => {
+      if (obj[k]) {
+        if (!Array.isArray(obj[k])) obj[k] = [obj[k]];
+        obj[k].push(v);
+      } else obj[k] = v;
+    });
+    console.log('Form data:', obj);
+
+    // Show success
+    document.getElementById('appForm').style.display = 'none';
+    const s = document.getElementById('successMsg');
+    s.classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
